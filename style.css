@@ -1,4 +1,4 @@
---- style.css ---
+---style.css---
 .card{
 width:100%; max-width:920px; display:grid; grid-template-columns: 320px 1fr; gap:28px;
 background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
@@ -39,3 +39,4 @@ body.dark{--bg1: 230 18% 6%; --accent: 210 100% 60%; --glass: rgba(255,255,255,0
 body.dark .card{background: linear-gradient(180deg, rgba(8,12,20,0.6), rgba(8,12,20,0.5)); box-shadow: 0 10px 30px rgba(2,6,23,0.6)}
 body.dark .stat{background: rgba(255,255,255,0.02)}
 body.dark .btn.ghost{color:var(--text); border:1px solid rgba(255,255,255,0.06)}
+body.dark .photo{border:6px solid rgba(255,255,255,0.1); box-shadow: 0 8px 30px rgba(0,0,0,0.3); background:linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))}
