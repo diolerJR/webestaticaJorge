@@ -1,42 +1,53 @@
 <!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
+<title>Perfil Jorge</title>
+</head>
+
+<body>
+<main>
+<section class="card">
+
+<div class="photo-wrap">
+  <div class="photo">
+    <img id="profileImg" src="imagenes/perfil.jpg" alt="Foto de perfil">
+  </div>
+</div>
+
+<div class="info">
 <h1 id="name">Jorge Garre</h1>
 <div class="role">Desarrollador · Diseñador · Creador</div>
-<p class="bio">Hola — soy Jorge. .</p>
+<p class="bio">Hola — soy Jorge.</p>
 
-
-<div class="actions" role="toolbar" aria-label="Acciones">
-<button class="btn" id="contactBtn">Contactar</button>
-<button class="btn ghost" id="swapPhoto">Foto aleatoria</button>
-<button class="btn ghost" id="themeToggle">Modo oscuro</button>
+<div class="actions" role="toolbar">
+  <button class="btn" id="contactBtn">Contactar</button>
+  <button class="btn ghost" id="swapPhoto">Foto aleatoria</button>
+  <button class="btn ghost" id="themeToggle">Modo oscuro</button>
 </div>
 
+<!-- 🔽 NUEVO FORMULARIO -->
+<form id="userForm" class="form">
+  <input type="text" id="userInput" placeholder="Escribe algo..." required>
+  <button type="submit" class="btn">Enviar</button>
+</form>
 
-<div class="stats" aria-hidden="false">
-<div class="stat"><b>12</b><small>Proyectos</small></div>
-<div class="stat"><b>8</b><small>Años</small></div>
-<div class="stat"><b>1.2k</b><small>Seguidores</small></div>
-</div>
-</div>
+<p id="response" class="response"></p>
 
-
-<div style="margin-top:6px" class="card-grid">
-<div class="panel">
-<strong>Sobre mí</strong>
-<p style="margin:8px 0 0; color:inherit; opacity:0.9">Me interesa la creación de interfaces atractivas, juego con código y diseño visual. Esta plantilla es totalmente editable.</p>
-</div>
-<div class="panel">
-<strong>Links</strong>
-<p style="margin:8px 0 0; opacity:0.9">GitHub · Behance · LinkedIn</p>
+<div class="stats">
+  <div class="stat"><b>12</b><small>Proyectos</small></div>
+  <div class="stat"><b>20</b><small>Años</small></div>
+  <div class="stat"><b>1.2k</b><small>Seguidores</small></div>
 </div>
 </div>
-
+</section>
 
 <footer>
-<small>Hecho con dedicacion </small>
+<small>Hecho con dedicación</small>
 </footer>
-</section>
-</main>
+
 <script src="script.js"></script>
+</main>
 </body>
 </html>
