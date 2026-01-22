@@ -1,9 +1,9 @@
 /* ==============================
    ELEMENTOS DEL DOM
    ============================== */
-const themeToggle = document.getElementById('themeToggle'); // ⚠️ Aún no está en HTML, puedes añadir un botón si quieres
-const swapPhoto = document.getElementById('swapPhoto');     // ⚠️ Aún no está en HTML
-const contactBtn = document.getElementById('contactBtn');   // ⚠️ Aún no está en HTML
+const themeToggle = document.getElementById('themeToggle'); // opcional
+const swapPhoto = document.getElementById('swapPhoto');     // opcional
+const contactBtn = document.getElementById('contactBtn');   // opcional
 const profileImg = document.getElementById('profileImg');
 
 const form = document.getElementById('userForm');
@@ -30,7 +30,7 @@ if (themeToggle) {
 /* ==============================
    CAMBIAR FOTO ALEATORIA
    ============================== */
-if (swapPhoto) {
+if (swapPhoto && profileImg) {
   swapPhoto.addEventListener('click', () => {
     const id = Math.floor(Math.random() * 1000);
     profileImg.src = `https://picsum.photos/200?random=${id}`;
@@ -48,28 +48,14 @@ if (contactBtn) {
 }
 
 /* ==============================
-   FUNCIÓN SIMULADA TIPO BACKEND
-   ============================== */
-function sendDataToServer(data) {
-  return new Promise((resolve) => {
-    // ⏳ Simula tiempo de servidor / DB
-    setTimeout(() => {
-      resolve({
-        success: true,
-        message: `Has escrito: "${data.text.toUpperCase()}"`
-      });
-    }, 500); // medio segundo
-  });
-}
-
-/* ==============================
-   MANEJO DEL FORMULARIO
+   ENVÍO DE DATOS AL SERVIDOR (PHP)
    ============================== */
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const text = input.value.trim();
 
+  // Validación frontend
   if (text.length < 3) {
     response.textContent = 'Escribe al menos 3 caracteres 😊';
     return;
@@ -78,16 +64,30 @@ form.addEventListener('submit', async (e) => {
   response.textContent = 'Enviando... ⏳';
 
   try {
-    const result = await sendDataToServer({ text });
+    const res = await fetch('procesar.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text })
+    });
+
+    // Si el servidor falla
+    if (!res.ok) {
+      throw new Error('Error HTTP ' + res.status);
+    }
+
+    const result = await res.json();
 
     if (result.success) {
       response.textContent = result.message;
       input.value = '';
     } else {
-      response.textContent = 'Error al procesar los datos ❌';
+      response.textContent = result.message || 'Error al procesar ❌';
     }
+
   } catch (error) {
     response.textContent = 'Error de conexión ❌';
-    console.error(error);
+    console.error('Fetch error:', error);
   }
 });
