@@ -48,15 +48,35 @@ if (contactBtn) {
 }
 
 /* ==============================
-   ENVÍO DE DATOS AL SERVIDOR (PHP)
+   SALUDOS ALEATORIOS
+   ============================== */
+const saludos = [
+  '¡Hola',
+  '¿Qué onda',
+  'Encantado de conocer a',
+  '¡Bienvenido',
+  'Un placer saludar a',
+  '¡Hey',
+  'Saludos cordiales a',
+  '¿Cómo estás',
+  '¡Qué gusto verte,',
+  'Mi nombre es Jorge y tú eres'
+];
+
+function obtenerSaludoAleatorio() {
+  return saludos[Math.floor(Math.random() * saludos.length)];
+}
+
+/* ==============================
+   ENVÍO DE DATOS AL SERVIDOR (API REST)
    ============================== */
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const text = input.value.trim();
+  const nombre = input.value.trim();
 
   // Validación frontend
-  if (text.length < 3) {
+  if (nombre.length < 3) {
     response.textContent = 'Escribe al menos 3 caracteres 😊';
     return;
   }
@@ -64,13 +84,9 @@ form.addEventListener('submit', async (e) => {
   response.textContent = 'Enviando... ⏳';
 
   try {
-    const res = await fetch('procesar.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ text })
-    });
+    const saludoAleatorio = obtenerSaludoAleatorio();
+    const apiUrl = `http://localhost:8080/api/saludos?nombre=${encodeURIComponent(nombre)}&saludo=${encodeURIComponent(saludoAleatorio)}`;
+    const res = await fetch(apiUrl);
 
     // Si el servidor falla
     if (!res.ok) {
@@ -79,11 +95,11 @@ form.addEventListener('submit', async (e) => {
 
     const result = await res.json();
 
-    if (result.success) {
-      response.textContent = result.message;
+    if (result.estado === 'success') {
+      response.textContent = result.mensaje;
       input.value = '';
     } else {
-      response.textContent = result.message || 'Error al procesar ❌';
+      response.textContent = result.mensaje || 'Error al procesar ❌';
     }
 
   } catch (error) {
